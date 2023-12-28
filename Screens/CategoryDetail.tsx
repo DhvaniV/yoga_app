@@ -185,7 +185,7 @@ const CategoryDetail = ({navigation}: any) => {
             onPress={() => {
               setOptionModal(false);
             }}
-            style={{flex: 1, backgroundColor: '#FFFFFF95'}}
+            style={{flex: 1, backgroundColor: theme.opacity}}
           />
           <View
             style={[
