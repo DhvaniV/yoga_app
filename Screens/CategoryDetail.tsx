@@ -7,6 +7,7 @@ import {
   Modal,
   Platform,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useId, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -218,32 +219,40 @@ const CategoryDetail = ({navigation}: any) => {
       dispatch(getCategortDetail(selectedCategory));
     }
   }, [selectedCategory]);
-
+  console.log('details,!!!!!!!!!', detail);
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <CustomHeader
-        title={selectedCategory}
-        onBackPress={() => navigation.goBack()}
-        onBack={backIcon}
-        about={menuIcon}
-        navigation={() => setOptionModal(true)}
-      />
+      {detail.length === 0 ? (
+        <View style={{justifyContent: 'center', flex: 1}}>
+          <ActivityIndicator size="large" color={buttonColor} />
+        </View>
+      ) : (
+        <>
+          <CustomHeader
+            title={selectedCategory}
+            onBackPress={() => navigation.goBack()}
+            onBack={backIcon}
+            about={menuIcon}
+            navigation={() => setOptionModal(true)}
+          />
 
-      <Animated.FlatList
-        data={detail.poses}
-        renderItem={renderItem}
-        horizontal
-        snapToInterval={screenWidth * 0.72}
-        decelerationRate={0}
-        bounces={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {useNativeDriver: true},
-        )}
-        scrollEventThrottle={16}
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-      />
+          <Animated.FlatList
+            data={detail.poses}
+            renderItem={renderItem}
+            horizontal
+            snapToInterval={screenWidth * 0.72}
+            decelerationRate={0}
+            bounces={false}
+            onScroll={Animated.event(
+              [{nativeEvent: {contentOffset: {x: scrollX}}}],
+              {useNativeDriver: true},
+            )}
+            scrollEventThrottle={16}
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+          />
+        </>
+      )}
     </View>
   );
 };

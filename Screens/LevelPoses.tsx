@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   Modal,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -119,23 +120,31 @@ const LevelPoses = ({navigation}: any) => {
       </View>
     );
   };
-  
+
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <CustomHeader
-        title={`${selectedLevel} Level`}
-        onBackPress={() => navigation.goBack()}
-        onBack={backIcon}
-      />
-      <FlatList
-        ref={flatListRef}
-        data={detail.poses}
-        renderItem={renderItem}
-        horizontal
-        scrollEnabled={false}
-        pagingEnabled
-        onScrollToIndexFailed={() => Alert.alert('This is first category!')}
-      />
+      {detail.length === 0 ? (
+        <View style={{justifyContent: 'center', flex: 1}}>
+          <ActivityIndicator size="large" color={buttonColor} />
+        </View>
+      ) : (
+        <>
+          <CustomHeader
+            title={`${selectedLevel} Level`}
+            onBackPress={() => navigation.goBack()}
+            onBack={backIcon}
+          />
+          <FlatList
+            ref={flatListRef}
+            data={detail.poses}
+            renderItem={renderItem}
+            horizontal
+            scrollEnabled={false}
+            pagingEnabled
+            onScrollToIndexFailed={() => Alert.alert('This is first category!')}
+          />
+        </>
+      )}
     </View>
   );
 };

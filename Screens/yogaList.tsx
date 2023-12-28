@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useId, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
@@ -96,20 +97,28 @@ const yogaList = ({navigation}: any) => {
   const flatListRef = useRef<FlatList | null>(null);
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <CustomHeader
-        title={'Yoga Category'}
-        onBackPress={() => navigation.goBack()}
-        onBack={backIcon}
-      />
-      <FlatList
-        ref={flatListRef}
-        data={userList.categoryList}
-        renderItem={renderItem}
-        horizontal
-        scrollEnabled={false}
-        pagingEnabled
-        onScrollToIndexFailed={() => Alert.alert('This is first category!')}
-      />
+      {userList.categoryList.length === 0 ? (
+        <View style={{justifyContent: 'center', flex: 1}}>
+          <ActivityIndicator size="large" color={buttonColor} />
+        </View>
+      ) : (
+        <>
+          <CustomHeader
+            title={'Yoga Category'}
+            onBackPress={() => navigation.goBack()}
+            onBack={backIcon}
+          />
+          <FlatList
+            ref={flatListRef}
+            data={userList.categoryList}
+            renderItem={renderItem}
+            horizontal
+            scrollEnabled={false}
+            pagingEnabled
+            onScrollToIndexFailed={() => Alert.alert('This is first category!')}
+          />
+        </>
+      )}
     </View>
   );
 };
