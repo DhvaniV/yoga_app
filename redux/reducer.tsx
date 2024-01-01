@@ -41,8 +41,6 @@ export const reducer = (
       };
     case SET_LEVEL_NAME:
       return {...state, levelName: action.data};
-    case GET_LEVEL_DATA:
-      return {...state, levelName: action.data};
     case SET_LEVEL_DATA:
       return {...state, levelData: action.data};
     default:

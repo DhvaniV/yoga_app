@@ -27,13 +27,6 @@ export function getCategortDetail(item: any) {
   };
 }
 
-export function setCategoryDetail(item: any) {
-  return {
-    type: SET_SELECTED_CATEGORY,
-    data: item,
-  };
-}
-
 export function setLevelName(item: any) {
   return {
     type: SET_LEVEL_NAME,
